@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class Rental {
     @SerializedName("no_plat")
     private String no_plat;
-    //test
+
     @SerializedName("nama_kendaraan")
     private String nama_kendaraan;
 
