@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">UAS_PBP_Kelompok_3</string>
+    <string name="batal">Batal</string>
+    <string name="simpan">Simpan</string>
+    <string name="tambah">Tambah</string>
+    <string name="edit">Edit</string>
+    <string name="loading_text">Loading…</string>
+    <string name="buka_kamera">Buka Kamera</string>
+    <string name="pilih_dari_galeri">Pilih dari Galeri</string>
 </resources>
