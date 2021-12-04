@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/GFigo/AndroidStudioProjects/UAS_PBP_Kelompok_3/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.18981481481481483" />
+        <entry key="..\:/Users/GFigo/AndroidStudioProjects/UAS_PBP_Kelompok_3/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.18981481481481483" />
+        <entry key="..\:/Users/GFigo/AndroidStudioProjects/UAS_PBP_Kelompok_3/app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.18981481481481483" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
