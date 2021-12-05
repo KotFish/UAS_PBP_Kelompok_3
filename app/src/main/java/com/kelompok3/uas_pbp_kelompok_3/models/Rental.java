@@ -3,6 +3,9 @@ package com.kelompok3.uas_pbp_kelompok_3.models;
 import com.google.gson.annotations.SerializedName;
 
 public class Rental {
+
+    private Long id;
+
     @SerializedName("no_plat")
     private String no_plat;
 
@@ -24,6 +27,14 @@ public class Rental {
         this.jenis_kendaraan = jenis_kendaraan;
         this.biaya_penyewaan = biaya_penyewaan;
         this.status = status;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNo_plat() {
