@@ -58,4 +58,14 @@ public interface ApiInterface {
     @Headers({"Accept: application/json"})
     @DELETE("rental/{id}")
     Call<RentalResponse> deleteRental(@Path("id") long id);
+
+    //Login
+    @Headers({"Accept: application/json"})
+    @POST("login")
+    Call<WisataResponse> login(@Body Wisata wisata);
+
+    //Register
+    @Headers({"Accept: application/json"})
+    @POST("register")
+    Call<WisataResponse> register(@Body Wisata wisata);
 }
