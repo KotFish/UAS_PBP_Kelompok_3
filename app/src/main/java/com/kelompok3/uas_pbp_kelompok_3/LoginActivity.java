@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.google.android.material.button.MaterialButton;
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText etUsername, etPassword;
+    private EditText etEmail, etPassword;
     private MaterialButton btnClear, btnLogin;
     private LinearLayout loginLayout;
     private TextView tvRegister;
@@ -23,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        etUsername = findViewById(R.id.et_username);
+        etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
 
         loginLayout = findViewById(R.id.loginLayout);
@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                etUsername.setText("");
+                etEmail.setText("");
                 etPassword.setText("");
             }
         });
@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(etUsername.getText().toString().trim().equals("test")
+                if(etEmail.getText().toString().trim().equals("test")
                         && etPassword.getText().toString().trim().equals("123")) {
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
