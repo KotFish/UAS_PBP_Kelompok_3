@@ -17,8 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.kelompok3.uas_pbp_kelompok_3.AddEditRentalActivity;
+import com.kelompok3.uas_pbp_kelompok_3.AddEditWisataActivity;
 import com.kelompok3.uas_pbp_kelompok_3.MainActivity;
 import com.kelompok3.uas_pbp_kelompok_3.R;
+import com.kelompok3.uas_pbp_kelompok_3.WisataActivity;
 import com.kelompok3.uas_pbp_kelompok_3.models.Wisata;
 
 import java.util.ArrayList;
@@ -62,8 +64,8 @@ public class WisataAdapter extends RecyclerView.Adapter<WisataAdapter.ViewHolder
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int
                                             i) {
-                                        if (context instanceof MainActivity)
-                                            ((MainActivity)
+                                        if (context instanceof WisataActivity)
+                                            ((WisataActivity)
                                                     context).deleteWisata(wisata.getId());
                                     }
                                 })
@@ -73,11 +75,11 @@ public class WisataAdapter extends RecyclerView.Adapter<WisataAdapter.ViewHolder
         holder.cvWisata.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(context, AddEditRentalActivity.class);
+                Intent i = new Intent(context, AddEditWisataActivity.class);
                 i.putExtra("id", wisata.getId());
-                if (context instanceof MainActivity)
-                    ((MainActivity) context).startActivityForResult(i,
-                            MainActivity.LAUNCH_ADD_ACTIVITY);
+                if (context instanceof WisataActivity)
+                    ((WisataActivity) context).startActivityForResult(i,
+                            WisataActivity.LAUNCH_ADD_ACTIVITY);
             }
         });
     }
@@ -85,7 +87,7 @@ public class WisataAdapter extends RecyclerView.Adapter<WisataAdapter.ViewHolder
     public int getItemCount() {
         return filteredWisataList.size();
     }
-    public void setRentalList(List<Wisata> wisataList) {
+    public void setWisataList(List<Wisata> wisataList) {
         this.wisataList = wisataList;
         filteredWisataList = new ArrayList<>(wisataList);
     }
