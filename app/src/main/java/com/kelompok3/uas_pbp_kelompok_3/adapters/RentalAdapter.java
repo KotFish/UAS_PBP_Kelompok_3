@@ -76,8 +76,8 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder
                 Intent i = new Intent(context, AddEditRentalActivity.class);
                 i.putExtra("id", rental.getId());
                 if (context instanceof MainActivity)
-                    ((MainActivity) context).startActivityForResult(i,
-                            MainActivity.LAUNCH_ADD_ACTIVITY);
+                    ((RentalActivity) context).startActivityForResult(i,
+                            RentalActivity.LAUNCH_ADD_ACTIVITY);
             }
         });
     }
