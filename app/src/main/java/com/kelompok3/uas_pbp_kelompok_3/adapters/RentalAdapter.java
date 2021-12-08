@@ -62,9 +62,9 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder
                                                     @Override
                                                     public void onClick(DialogInterface dialogInterface, int
                                                             i) {
-                                                        if (context instanceof RentalActivity)
+                                                        if (context instanceof MainActivity)
                                                             ((RentalActivity)
-                                                                    context).deleteRental(rental.getId());
+                                                                    context).deleteRental(Rental.getId());
                                                     }
                                                 })
                                         .show();
@@ -75,9 +75,9 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder
             public void onClick(View view) {
                 Intent i = new Intent(context, AddEditRentalActivity.class);
                 i.putExtra("id", rental.getId());
-                if (context instanceof RentalActivity)
-                    ((RentalActivity) context).startActivityForResult(i,
-                            RentalActivity.LAUNCH_ADD_ACTIVITY);
+                if (context instanceof MainActivity)
+                    ((MainActivity) context).startActivityForResult(i,
+                            MainActivity.LAUNCH_ADD_ACTIVITY);
             }
         });
     }

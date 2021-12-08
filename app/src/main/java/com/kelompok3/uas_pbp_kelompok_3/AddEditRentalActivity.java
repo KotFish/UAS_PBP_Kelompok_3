@@ -40,9 +40,9 @@ public class AddEditRentalActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_edit_rental_activity);
+        setContentView(R.layout.activity_add_edit_rental);
         apiService = ApiClient.getClient().create(ApiInterface.class);
-        etNoPlat = findViewById(R.id.tv_noplat);
+        etNoPlat = findViewById(R.id.et_noPlat);
         etNamaKendaraan = findViewById(R.id.et_namaKendaraan);
         etJenisKendaraan = findViewById(R.id.et_jenisKendaraan);
         etBiayaSewa = findViewById(R.id.et_biayaSewa);
