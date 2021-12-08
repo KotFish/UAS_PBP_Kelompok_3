@@ -16,7 +16,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.gson.annotations.SerializedName;
 import com.kelompok3.uas_pbp_kelompok_3.AddEditRentalActivity;
 import com.kelompok3.uas_pbp_kelompok_3.MainActivity;
 import com.kelompok3.uas_pbp_kelompok_3.R;
@@ -42,21 +41,6 @@ public class WisataAdapter extends RecyclerView.Adapter<WisataAdapter.ViewHolder
         View view = inflater.inflate(R.layout.item_rental, parent, false);
         return new ViewHolder(view);
     }
-
-    @SerializedName("nama_wisata")
-    private String nama_wisata;
-
-    @SerializedName("lokasi")
-    private String lokasi;
-
-    @SerializedName("deskripsi")
-    private String deskripsi;
-
-    @SerializedName("url_gambar")
-    private String url_gambar;
-
-    @SerializedName("harga")
-    private int harga;
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
