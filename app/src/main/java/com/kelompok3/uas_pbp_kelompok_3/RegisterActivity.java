@@ -12,16 +12,16 @@ import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 
-public class LoginActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
     private EditText etUsername, etPassword;
-    private MaterialButton btnClear, btnLogin;
+    private MaterialButton btnClear, btnRegister;
     private LinearLayout loginLayout;
-    private TextView tvRegister;
+    private TextView tvLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
 
         etUsername = findViewById(R.id.et_username);
         etPassword = findViewById(R.id.et_password);
@@ -29,9 +29,9 @@ public class LoginActivity extends AppCompatActivity {
         loginLayout = findViewById(R.id.loginLayout);
 
         btnClear = findViewById(R.id.btn_clear_text);
-        btnLogin = findViewById(R.id.btn_login);
+        btnRegister = findViewById(R.id.btn_register);
 
-        tvRegister = findViewById(R.id.txtRegister);
+        tvLogin = findViewById(R.id.txtLogin);
 
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,23 +41,23 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(etUsername.getText().toString().trim().equals("test")
-                        && etPassword.getText().toString().trim().equals("123")) {
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    finish();
-                }else {
-                    Toast.makeText(LoginActivity.this,"Username Atau Password Salah",Toast.LENGTH_SHORT).show();
-                }
+//                if(etUsername.getText().toString().trim().equals("test")
+//                        && etPassword.getText().toString().trim().equals("123")) {
+//                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                    finish();
+//                }else {
+//                    Toast.makeText(LoginActivity.this,"Username Atau Password Salah",Toast.LENGTH_SHORT).show();
+//                }
             }
         });
 
-        tvRegister.setOnClickListener(new View.OnClickListener() {
+        tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                 finish();
             }
         });

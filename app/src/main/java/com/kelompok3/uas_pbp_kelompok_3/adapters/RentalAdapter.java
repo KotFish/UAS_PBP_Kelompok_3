@@ -62,7 +62,7 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder
                                                     public void onClick(DialogInterface dialogInterface, int
                                                             i) {
                                                         if (context instanceof MainActivity)
-                                                            ((RentalActivity)
+                                                            ((MainActivity)
                                                                     context).deleteRental(Rental.getId());
                                                     }
                                                 })

@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.annotations.SerializedName;
 import com.kelompok3.uas_pbp_kelompok_3.AddEditRentalActivity;
-import com.kelompok3.uas_pbp_kelompok_3.AddEditWisataActivity;
 import com.kelompok3.uas_pbp_kelompok_3.MainActivity;
 import com.kelompok3.uas_pbp_kelompok_3.R;
 import com.kelompok3.uas_pbp_kelompok_3.models.Wisata;
@@ -80,7 +79,7 @@ public class WisataAdapter extends RecyclerView.Adapter<WisataAdapter.ViewHolder
                                     public void onClick(DialogInterface dialogInterface, int
                                             i) {
                                         if (context instanceof MainActivity)
-                                            ((WisataActivity)
+                                            ((MainActivity)
                                                     context).deleteWisata(wisata.getId());
                                     }
                                 })
