@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
@@ -15,6 +16,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etUsername, etPassword;
     private MaterialButton btnClear, btnLogin;
     private LinearLayout loginLayout;
+    private TextView tvRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,8 @@ public class LoginActivity extends AppCompatActivity {
 
         btnClear = findViewById(R.id.btn_clear_text);
         btnLogin = findViewById(R.id.btn_login);
+
+        tvRegister = findViewById(R.id.txtRegister);
 
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +54,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
+        tvRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                finish();
+            }
+        });
     }
 }
