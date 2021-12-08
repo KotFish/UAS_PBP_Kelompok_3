@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UAS_PBP_Kelompok_3">
         <activity
+            android:name=".WisataActivity"
+            android:exported="true" />
+        <activity
+            android:name=".RentalActivity"
+            android:exported="true" />
+        <activity
             android:name=".AddEditWisataActivity"
             android:exported="false" />
         <activity

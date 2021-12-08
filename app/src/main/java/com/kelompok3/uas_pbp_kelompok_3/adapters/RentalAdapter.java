@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.kelompok3.uas_pbp_kelompok_3.AddEditRentalActivity;
-import com.kelompok3.uas_pbp_kelompok_3.MainActivity;
 import com.kelompok3.uas_pbp_kelompok_3.R;
+import com.kelompok3.uas_pbp_kelompok_3.RentalActivity;
 import com.kelompok3.uas_pbp_kelompok_3.models.Rental;
 
 import java.util.ArrayList;
@@ -61,8 +61,8 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder
                                                     @Override
                                                     public void onClick(DialogInterface dialogInterface, int
                                                             i) {
-                                                        if (context instanceof MainActivity)
-                                                            ((MainActivity)
+                                                        if (context instanceof RentalActivity)
+                                                            ((RentalActivity)
                                                                     context).deleteRental(Rental.getId());
                                                     }
                                                 })
@@ -74,9 +74,9 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder
             public void onClick(View view) {
                 Intent i = new Intent(context, AddEditRentalActivity.class);
                 i.putExtra("id", rental.getId());
-                if (context instanceof MainActivity)
-                    ((MainActivity) context).startActivityForResult(i,
-                            MainActivity.LAUNCH_ADD_ACTIVITY);
+                if (context instanceof RentalActivity)
+                    ((RentalActivity) context).startActivityForResult(i,
+                            RentalActivity.LAUNCH_ADD_ACTIVITY);
             }
         });
     }

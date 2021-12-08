@@ -16,8 +16,6 @@ import android.widget.Toast;
 import com.google.android.material.button.MaterialButton;
 
 public class MainActivity extends AppCompatActivity {
-    public static final int LAUNCH_ADD_ACTIVITY = 123;
-
     private TextView tvWelcome;
     private MaterialButton btnLogout;
     private User user;
