@@ -59,11 +59,15 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this,"Name Tidak Boleh Kosong!",Toast.LENGTH_SHORT).show();
                 }else if(!(etName.getText().toString().trim().matches(regexAlpha))){
                     Toast.makeText(RegisterActivity.this,"Nama Tidak Boleh Mengandung Angka dan Simbol",Toast.LENGTH_SHORT).show();
-                }else if(etEmail.getText().toString().trim().isEmpty()){
+                }
+
+                if(etEmail.getText().toString().trim().isEmpty()){
                     Toast.makeText(RegisterActivity.this,"Email Tidak Boleh Kosong!",Toast.LENGTH_SHORT).show();
                 }else if(!(etEmail.getText().toString().trim().matches(regexEmail))){
                     Toast.makeText(RegisterActivity.this,"Format Email Salah",Toast.LENGTH_SHORT).show();
-                }else if(etPassword.getText().toString().trim().isEmpty()){
+                }
+
+                if(etPassword.getText().toString().trim().isEmpty()){
                     Toast.makeText(RegisterActivity.this,"Password Tidak Boleh Kosong!",Toast.LENGTH_SHORT).show();
                 }else if(!(etPassword.getText().toString().trim().matches(regexAlphaNum))){
                     Toast.makeText(RegisterActivity.this,"Password Harus Mengandung Huruf Besar, kecil, angka, dan simbol",Toast.LENGTH_SHORT).show();
