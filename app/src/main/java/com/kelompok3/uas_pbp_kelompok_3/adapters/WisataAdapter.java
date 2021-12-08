@@ -16,6 +16,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.gson.annotations.SerializedName;
 import com.kelompok3.uas_pbp_kelompok_3.AddEditRentalActivity;
 import com.kelompok3.uas_pbp_kelompok_3.MainActivity;
 import com.kelompok3.uas_pbp_kelompok_3.R;
@@ -24,9 +25,10 @@ import com.kelompok3.uas_pbp_kelompok_3.models.Wisata;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WisataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {
+public class WisataAdapter extends RecyclerView.Adapter<WisataAdapter.ViewHolder> implements Filterable {
     private List<Wisata> wisataList, filteredWisataList;
     private Context context;
+
     public WisataAdapter(List<Wisata> wisataList, Context context) {
         this.wisataList = wisataList;
         filteredWisataList = new ArrayList<>(wisataList);
@@ -41,20 +43,35 @@ public class WisataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return new ViewHolder(view);
     }
 
+    @SerializedName("nama_wisata")
+    private String nama_wisata;
+
+    @SerializedName("lokasi")
+    private String lokasi;
+
+    @SerializedName("deskripsi")
+    private String deskripsi;
+
+    @SerializedName("url_gambar")
+    private String url_gambar;
+
+    @SerializedName("harga")
+    private int harga;
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Wisata wisata = filteredWisataList.get(position);
-        holder.tvNamaKendaraan.setText(rental.getNama_kendaraan());
-        holder.tvJenisKendaraan.setText(rental.getJenis_kendaraan());
-        holder.tvStatus.setText(String.valueOf(rental.getStatus())); //bool?
-        holder.tvBiayaKendaraan.setText(rental.getBiaya_penyewaan());
+        holder.tvNama_wisata.setText(wisata.getNama_wisata());
+        holder.tvLokasi.setText(wisata.getLokasi());
+        holder.tvUrl_gambar.setText(wisata.getUrl_gambar());
+        holder.tvHarga.setText(String.valueOf(wisata.getHarga()));
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MaterialAlertDialogBuilder materialAlertDialogBuilder =
                         new MaterialAlertDialogBuilder(context);
                 materialAlertDialogBuilder.setTitle("Konfirmasi")
-                        .setMessage("Apakah anda yakin ingin menghapus data kendaraan ini?")
+                        .setMessage("Apakah anda yakin ingin menghapus data Wisata ini?")
                         .setNegativeButton("Batal", null)
                         .setPositiveButton("Hapus", new
                                 DialogInterface.OnClickListener() {
@@ -63,17 +80,17 @@ public class WisataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                                             i) {
                                         if (context instanceof MainActivity)
                                             ((MainActivity)
-                                                    context).deleteMahasiswa(mahasiswa.getId());
+                                                    context).deleteWisata(wisata.getId());
                                     }
                                 })
                         .show();
             }
         });
-        holder.cvRental.setOnClickListener(new View.OnClickListener() {
+        holder.cvWisata.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(context, AddEditRentalActivity.class);
-                i.putExtra("id", rental.getId());
+                i.putExtra("id", wisata.getId());
                 if (context instanceof MainActivity)
                     ((MainActivity) context).startActivityForResult(i,
                             MainActivity.LAUNCH_ADD_ACTIVITY);
@@ -82,11 +99,11 @@ public class WisataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
     @Override
     public int getItemCount() {
-        return filteredRentalList.size();
+        return filteredWisataList.size();
     }
-    public void setRentalList(List<Rental> rentalList) {
-        this.rentalList = rentalList;
-        filteredRentalList = new ArrayList<>(rentalList);
+    public void setRentalList(List<Wisata> wisataList) {
+        this.wisataList = wisataList;
+        filteredWisataList = new ArrayList<>(wisataList);
     }
     @Override
     public Filter getFilter() {
@@ -94,14 +111,14 @@ public class WisataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
                 String charSequenceString = charSequence.toString();
-                List<Rental> filtered = new ArrayList<>();
+                List<Wisata> filtered = new ArrayList<>();
                 if (charSequenceString.isEmpty()) {
-                    filtered.addAll(rentalList);
+                    filtered.addAll(wisataList);
                 } else {
-                    for (Rental rental : rentalList) {
-                        if (rental.getNama_kendaraan().toLowerCase()
+                    for (Wisata wisata : wisataList) {
+                        if (wisata.getNama_wisata().toLowerCase()
                                 .contains(charSequenceString.toLowerCase()))
-                            filtered.add(rental);
+                            filtered.add(wisata);
                     }
                 }
                 FilterResults filterResults = new FilterResults();
@@ -111,24 +128,24 @@ public class WisataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults
                     filterResults) {
-                filteredRentalList.clear();
-                filteredRentalList.addAll((List<Rental>) filterResults.values);
+                filteredWisataList.clear();
+                filteredWisataList.addAll((List<Wisata>) filterResults.values);
                 notifyDataSetChanged();
             }
         };
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNamaKendaraan, tvStatus, tvJenisKendaraan, tvBiayaKendaraan;
+        TextView tvNama_wisata, tvLokasi, tvUrl_gambar, tvHarga;
         ImageButton btnDelete;
-        CardView cvRental;
+        CardView cvWisata;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvNamaKendaraan = itemView.findViewById(R.id.tv_namaKendaraan);
-            tvJenisKendaraan = itemView.findViewById(R.id.tv_jenisKendaraan);
-            tvStatus = itemView.findViewById(R.id.tv_status);
-            tvBiayaKendaraan = itemView.findViewById(R.id.tv_biayaSewa);
+            tvNama_wisata = itemView.findViewById(R.id.tv_namaWisata);
+            tvLokasi = itemView.findViewById(R.id.tv_lokasiWisata);
+            tvUrl_gambar = itemView.findViewById(R.id.iv_gambarWisata);
+            tvHarga = itemView.findViewById(R.id.tv_hargaWisata);
             btnDelete = itemView.findViewById(R.id.btn_delete);
-            cvRental = itemView.findViewById(R.id.cv_rental);
+            cvWisata = itemView.findViewById(R.id.cv_wisata);
         }
     }
 }

@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class Wisata {
 
+    private Long id;
+
     @SerializedName("nama_wisata")
     private String nama_wisata;
 
@@ -25,6 +27,14 @@ public class Wisata {
         this.deskripsi = deskripsi;
         this.url_gambar = url_gambar;
         this.harga = harga;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNama_wisata() {

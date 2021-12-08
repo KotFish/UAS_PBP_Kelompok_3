@@ -63,7 +63,7 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder
                                                             i) {
                                                         if (context instanceof MainActivity)
                                                             ((MainActivity)
-                                                                    context).deleteMahasiswa(mahasiswa.getId());
+                                                                    context).deleteRental(Rental.getId());
                                                     }
                                                 })
                                         .show();
