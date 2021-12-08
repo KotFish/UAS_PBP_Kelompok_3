@@ -20,6 +20,7 @@ import com.kelompok3.uas_pbp_kelompok_3.AddEditRentalActivity;
 import com.kelompok3.uas_pbp_kelompok_3.MainActivity;
 import com.kelompok3.uas_pbp_kelompok_3.R;
 import com.kelompok3.uas_pbp_kelompok_3.RentalActivity;
+import com.kelompok3.uas_pbp_kelompok_3.WisataActivity;
 import com.kelompok3.uas_pbp_kelompok_3.models.Rental;
 
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder
                                                             i) {
                                                         if (context instanceof RentalActivity)
                                                             ((RentalActivity)
-                                                                    context).deleteRental(Rental.getId());
+                                                                    context).deleteRental(rental.getId());
                                                     }
                                                 })
                                         .show();
