@@ -20,6 +20,7 @@ import com.google.gson.annotations.SerializedName;
 import com.kelompok3.uas_pbp_kelompok_3.AddEditRentalActivity;
 import com.kelompok3.uas_pbp_kelompok_3.MainActivity;
 import com.kelompok3.uas_pbp_kelompok_3.R;
+import com.kelompok3.uas_pbp_kelompok_3.WisataActivity;
 import com.kelompok3.uas_pbp_kelompok_3.models.Wisata;
 
 import java.util.ArrayList;
@@ -79,7 +80,7 @@ public class WisataAdapter extends RecyclerView.Adapter<WisataAdapter.ViewHolder
                                     public void onClick(DialogInterface dialogInterface, int
                                             i) {
                                         if (context instanceof MainActivity)
-                                            ((MainActivity)
+                                            ((WisataActivity)
                                                     context).deleteWisata(wisata.getId());
                                     }
                                 })
