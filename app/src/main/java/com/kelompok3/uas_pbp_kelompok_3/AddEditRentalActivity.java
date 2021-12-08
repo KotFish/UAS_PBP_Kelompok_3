@@ -36,12 +36,13 @@ public class AddEditRentalActivity extends AppCompatActivity {
     private EditText etNamaKendaraan, etJenisKendaraan, etBiayaSewa, etNoPlat;
     private AutoCompleteTextView edStatus;
     private LinearLayout layoutLoading;
+    private Boolean status = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_add_edit_rental_activity);
+        setContentView(R.layout.add_edit_rental_activity);
         apiService = ApiClient.getClient().create(ApiInterface.class);
-//        etNoPlat = findViewById(R.id.); //addedit blm ada noplat soale yg di xml rental blm ada juga
+        etNoPlat = findViewById(R.id.tv_noplat);
         etNamaKendaraan = findViewById(R.id.et_namaKendaraan);
         etJenisKendaraan = findViewById(R.id.et_jenisKendaraan);
         etBiayaSewa = findViewById(R.id.et_biayaSewa);
@@ -116,12 +117,17 @@ public class AddEditRentalActivity extends AppCompatActivity {
     }
     private void createRental() {
         setLoading(true);
+        if(edStatus.getText().toString() == "Tersedia")
+            status = true;
+        else
+            status = false;
+
         Rental rental = new Rental(
                 etNoPlat.getText().toString(),
                 etNamaKendaraan.getText().toString(),
                 etJenisKendaraan.getText().toString(),
                 etBiayaSewa.getText().toString(),
-                edStatus.getText().toString()); // <--- itu boolean gmn cara benerinnya
+                status); // <--- itu boolean gmn cara benerinnya
         Call<RentalResponse> call = apiService.createRental(rental);
         call.enqueue(new Callback<RentalResponse>() {
             @Override
@@ -157,12 +163,16 @@ public class AddEditRentalActivity extends AppCompatActivity {
     }
     private void updateRental(long id) {
         setLoading(true);
+        if(edStatus.getText().toString() == "Tersedia")
+            status = true;
+        else
+            status = false;
         Rental rental = new Rental(
                 etNoPlat.getText().toString(),
                 etNamaKendaraan.getText().toString(),
                 etJenisKendaraan.getText().toString(),
                 etBiayaSewa.getText().toString(),
-                edStatus.getText().toString()); // <--- itu boolean gmn cara benerinnya
+                status); // <--- itu boolean gmn cara benerinnya
         Call<RentalResponse> call = apiService.updateRental(id, rental);
         call.enqueue(new Callback<RentalResponse>() {
             @Override
