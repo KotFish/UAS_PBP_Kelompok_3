@@ -2,13 +2,12 @@ package com.kelompok3.uas_pbp_kelompok_3.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
 
-public class UserResponse {
+public class UserResponse2 {
     private String message;
 
     @SerializedName("data")
-    private List<User> user;
+    private User user;
 
     private  String token_type;
 
@@ -22,11 +21,11 @@ public class UserResponse {
         this.message = message;
     }
 
-    public List<User> getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(List<User> user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
