@@ -18,7 +18,6 @@ import com.google.android.material.button.MaterialButton;
 public class MainActivity extends AppCompatActivity {
 
     private TextView tvWelcome;
-    private MaterialButton btnLogout;
     private CardView cvTravel, cvRental;
     private ImageButton btnAbout;
 
@@ -28,22 +27,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         tvWelcome = findViewById(R.id.tvWelcome);
-        btnLogout = findViewById(R.id.btnLogout);
         cvTravel = findViewById(R.id.cvTravel);
         btnAbout = findViewById(R.id.aboutBtn);
         cvRental = findViewById(R.id.cvRental);
 
 //        tvWelcome.setText("Welcome, "+user.getUsername()+"!");
         tvWelcome.setText("Welcome, User!");
-
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this,"Thank you for visiting our app!",Toast.LENGTH_SHORT).show();
-                Intent moveLogin = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(moveLogin);
-            }
-        });
 
         btnAbout.setOnClickListener(new View.OnClickListener() {
             @Override

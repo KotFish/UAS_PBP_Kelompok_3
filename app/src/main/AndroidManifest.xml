@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UAS_PBP_Kelompok_3">
         <activity
+            android:name=".ProfilActivity"
+            android:exported="true" />
+        <activity
             android:name=".QRActivity"
             android:exported="true" />
         <activity
