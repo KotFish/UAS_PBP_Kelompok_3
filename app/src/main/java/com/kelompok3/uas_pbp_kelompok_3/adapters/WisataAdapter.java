@@ -9,12 +9,14 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.kelompok3.uas_pbp_kelompok_3.AddEditRentalActivity;
 import com.kelompok3.uas_pbp_kelompok_3.AddEditWisataActivity;
@@ -49,7 +51,12 @@ public class WisataAdapter extends RecyclerView.Adapter<WisataAdapter.ViewHolder
         Wisata wisata = filteredWisataList.get(position);
         holder.tvNama_wisata.setText(wisata.getNama_wisata());
         holder.tvLokasi.setText(wisata.getLokasi());
-        holder.tvUrl_gambar.setText(wisata.getUrl_gambar());
+
+        Glide.with(context)
+                .load(wisata.getUrl_gambar())
+                .placeholder(R.drawable.no_image)
+                .into(holder.ivGambarWisata);
+
         holder.tvHarga.setText(String.valueOf(wisata.getHarga()));
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,14 +128,15 @@ public class WisataAdapter extends RecyclerView.Adapter<WisataAdapter.ViewHolder
         };
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNama_wisata, tvLokasi, tvUrl_gambar, tvHarga;
+        TextView tvNama_wisata, tvLokasi, tvHarga;
+        ImageView ivGambarWisata;
         ImageButton btnDelete;
         CardView cvWisata;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvNama_wisata = itemView.findViewById(R.id.tv_namaWisata);
             tvLokasi = itemView.findViewById(R.id.tv_lokasiWisata);
-            tvUrl_gambar = itemView.findViewById(R.id.iv_gambarWisata);
+            ivGambarWisata = itemView.findViewById(R.id.iv_gambarWisata);
             tvHarga = itemView.findViewById(R.id.tv_hargaWisata);
             btnDelete = itemView.findViewById(R.id.btn_delete);
             cvWisata = itemView.findViewById(R.id.cv_wisata);
