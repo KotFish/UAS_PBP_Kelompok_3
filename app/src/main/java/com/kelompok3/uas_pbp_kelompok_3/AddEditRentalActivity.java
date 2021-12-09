@@ -29,14 +29,13 @@ import retrofit2.Response;
 
 
 public class AddEditRentalActivity extends AppCompatActivity {
-    private static final String[] STATUS_LIST = new String[]{"Tersedia",
-            "Tidak Tersedia"};
+    private static final String[] STATUS_LIST = new String[]{"Tersedia", "Tidak Tersedia"};
 
     private ApiInterface apiService;
     private EditText etNamaKendaraan, etJenisKendaraan, etBiayaSewa, etNoPlat;
     private AutoCompleteTextView edStatus;
     private LinearLayout layoutLoading;
-    private Boolean status = false;
+    private Integer status = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +47,7 @@ public class AddEditRentalActivity extends AppCompatActivity {
         etBiayaSewa = findViewById(R.id.et_biayaSewa);
         edStatus = findViewById(R.id.ed_status);
         layoutLoading = findViewById(R.id.layout_loading);
-        ArrayAdapter<String> adapterStatus =
-                new ArrayAdapter<>(this, R.layout.item_rental, STATUS_LIST);
+        ArrayAdapter<String> adapterStatus = new ArrayAdapter<>(this, R.layout.item_list_rental, STATUS_LIST);
         edStatus.setAdapter(adapterStatus);
         Button btnCancel = findViewById(R.id.btn_cancel);
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +57,7 @@ public class AddEditRentalActivity extends AppCompatActivity {
             }
         });
         Button btnSave = findViewById(R.id.btn_save);
-        TextView tvTitle = findViewById(R.id.tv_title);
+        TextView tvTitle = findViewById(R.id.tv_title_rental);
         long id = getIntent().getLongExtra("id", -1);
         if (id == -1) {
             tvTitle.setText(R.string.tambah_rental);
@@ -117,17 +115,17 @@ public class AddEditRentalActivity extends AppCompatActivity {
     }
     private void createRental() {
         setLoading(true);
-        if(edStatus.getText().toString() == "Tersedia")
-            status = true;
+        if(edStatus.getText().toString().trim().equals("Tersedia"))
+            status = 1;
         else
-            status = false;
+            status = 0;
 
         Rental rental = new Rental(
                 etNoPlat.getText().toString(),
                 etNamaKendaraan.getText().toString(),
                 etJenisKendaraan.getText().toString(),
                 etBiayaSewa.getText().toString(),
-                status); // <--- itu boolean gmn cara benerinnya
+                status);
         Call<RentalResponse> call = apiService.createRental(rental);
         call.enqueue(new Callback<RentalResponse>() {
             @Override
@@ -141,11 +139,11 @@ public class AddEditRentalActivity extends AppCompatActivity {
                     finish();
                 } else {
                     try {
-                        JSONObject jObjError = new
-                                JSONObject(response.errorBody().string());
-                        Toast.makeText(AddEditRentalActivity.this,
-                                jObjError.getString("message"),
-                                Toast.LENGTH_SHORT).show();
+//                        JSONObject jObjError = new
+//                                JSONObject(response.errorBody().string());
+//                        Toast.makeText(AddEditRentalActivity.this,
+//                                jObjError.getString("message"),
+//                                Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         Toast.makeText(AddEditRentalActivity.this,
                                 e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -164,9 +162,9 @@ public class AddEditRentalActivity extends AppCompatActivity {
     private void updateRental(long id) {
         setLoading(true);
         if(edStatus.getText().toString() == "Tersedia")
-            status = true;
+            status = 1;
         else
-            status = false;
+            status = 0;
         Rental rental = new Rental(
                 etNoPlat.getText().toString(),
                 etNamaKendaraan.getText().toString(),

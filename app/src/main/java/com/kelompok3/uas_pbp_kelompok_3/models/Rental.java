@@ -19,9 +19,9 @@ public class Rental {
     private String biaya_penyewaan;
 
     @SerializedName("status")
-    private Boolean status;
+    private Integer status;
 
-    public Rental(String no_plat, String nama_kendaraan, String jenis_kendaraan, String biaya_penyewaan, Boolean status) {
+    public Rental(String no_plat, String nama_kendaraan, String jenis_kendaraan, String biaya_penyewaan, Integer status) {
         this.no_plat = no_plat;
         this.nama_kendaraan = nama_kendaraan;
         this.jenis_kendaraan = jenis_kendaraan;
@@ -69,11 +69,11 @@ public class Rental {
         this.biaya_penyewaan = biaya_penyewaan;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 }

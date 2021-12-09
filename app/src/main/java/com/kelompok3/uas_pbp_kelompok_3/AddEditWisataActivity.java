@@ -31,6 +31,7 @@ import com.kelompok3.uas_pbp_kelompok_3.api.ApiClient;
 import com.kelompok3.uas_pbp_kelompok_3.api.ApiInterface;
 import com.kelompok3.uas_pbp_kelompok_3.models.Wisata;
 import com.kelompok3.uas_pbp_kelompok_3.models.WisataResponse;
+import com.kelompok3.uas_pbp_kelompok_3.models.WisataResponse2;
 
 import org.json.JSONObject;
 
@@ -105,14 +106,14 @@ public class AddEditWisataActivity extends AppCompatActivity {
             }
         });
 
-        Button btnCancel = findViewById(R.id.btn_cancel);
+        Button btnCancel = findViewById(R.id.btn_cancel_wisata);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { finish(); }
         });
 
-        Button btnSave = findViewById(R.id.btn_save);
-        TextView tvTitle = findViewById(R.id.tv_title);
+        Button btnSave = findViewById(R.id.btn_save_wisata);
+        TextView tvTitle = findViewById(R.id.tv_title_wisata);
         long id = getIntent().getLongExtra("id", -1);
 
         if (id == -1) {
@@ -254,16 +255,17 @@ public class AddEditWisataActivity extends AppCompatActivity {
         setLoading(true);
         BitmapDrawable bitmapDrawable = (BitmapDrawable) ivGambarWisata.getDrawable();
         Bitmap bit = bitmapDrawable.getBitmap();
-        Wisata wisata = new Wisata(
+        Wisata wisataw = new Wisata(
                 etNamaWisata.getText().toString(),
                 etLokasi.getText().toString(),
                 etDeskripsi.getText().toString(),
-                bitmapToBase64(bit),
+                "no_link",
                 Integer.parseInt(etHargaWisata.getText().toString()));
-        Call<WisataResponse> call = apiService.createWisata(wisata);
-        call.enqueue(new Callback<WisataResponse>() {
+
+        Call<WisataResponse2> call = apiService.createWisata(wisataw);
+        call.enqueue(new Callback<WisataResponse2>() {
             @Override
-            public void onResponse(Call<WisataResponse> call, Response<WisataResponse> response) {
+            public void onResponse(Call<WisataResponse2> call, Response<WisataResponse2> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(AddEditWisataActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     Intent returnIntent = new Intent();
@@ -281,7 +283,7 @@ public class AddEditWisataActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<WisataResponse> call, Throwable t) {
+            public void onFailure(Call<WisataResponse2> call, Throwable t) {
                 Toast.makeText(AddEditWisataActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 setLoading(false);
             }

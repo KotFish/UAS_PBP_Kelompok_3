@@ -6,22 +6,17 @@ public class Wisata {
 
     private Long id;
 
-    @SerializedName("nama_wisata")
     private String nama_wisata;
 
-    @SerializedName("lokasi")
     private String lokasi;
 
-    @SerializedName("deskripsi")
     private String deskripsi;
 
-    @SerializedName("url_gambar")
     private String url_gambar;
 
-    @SerializedName("harga")
-    private int harga;
+    private Integer harga;
 
-    public Wisata(String nama_wisata, String lokasi, String deskripsi, String url_gambar, int harga) {
+    public Wisata(String nama_wisata, String lokasi, String deskripsi, String url_gambar, Integer harga) {
         this.nama_wisata = nama_wisata;
         this.lokasi = lokasi;
         this.deskripsi = deskripsi;
@@ -69,11 +64,11 @@ public class Wisata {
         this.url_gambar = url_gambar;
     }
 
-    public int getHarga() {
+    public Integer getHarga() {
         return harga;
     }
 
-    public void setHarga(int harga) {
+    public void setHarga(Integer harga) {
         this.harga = harga;
     }
 }

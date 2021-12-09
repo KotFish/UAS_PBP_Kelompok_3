@@ -9,7 +9,7 @@
     android:focusableInTouchMode="true"
     tools:context=".AddEditRentalActivity">
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/tv_title_rental"
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         android:hint="No Plat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title">
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_rental">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_noPlat"
             android:layout_width="match_parent"
