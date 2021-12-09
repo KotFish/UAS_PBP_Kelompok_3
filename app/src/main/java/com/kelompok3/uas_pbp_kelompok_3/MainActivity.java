@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvWelcome;
     private CardView cvTravel, cvRental;
     private ImageButton btnAbout;
+    private Bundle b;
+    private String token, userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +32,11 @@ public class MainActivity extends AppCompatActivity {
         cvTravel = findViewById(R.id.cvTravel);
         btnAbout = findViewById(R.id.aboutBtn);
         cvRental = findViewById(R.id.cvRental);
+        b = getIntent().getExtras();
+        token = (String) b.get("token");
+        userName = (String) b.get("username");
 
-//        tvWelcome.setText("Welcome, "+user.getUsername()+"!");
-        tvWelcome.setText("Welcome, User!");
+        tvWelcome.setText("Welcome to SkuyTravel, " + userName +"!");
 
         btnAbout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent moveRental = new Intent(MainActivity.this, RentalActivity.class);
+                moveRental.putExtra("token", token);
                 startActivity(moveRental);
             }
         });

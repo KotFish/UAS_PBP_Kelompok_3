@@ -55,9 +55,10 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder
             holder.tvStatus.setText("Tidak Tersedia");
             holder.tvStatus.setTextColor(Color.parseColor("#ff0000"));
         }
-        else
+        else{
             holder.tvStatus.setText("Tersedia");
-
+            holder.tvStatus.setTextColor(Color.parseColor("#3cff50"));
+        }
 
         holder.tvBiayaKendaraan.setText("Rp. " + rental.getBiaya_penyewaan());
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {

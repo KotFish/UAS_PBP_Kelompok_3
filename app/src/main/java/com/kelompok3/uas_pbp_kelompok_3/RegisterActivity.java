@@ -13,9 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
+import com.kelompok3.uas_pbp_kelompok_3.api.ApiClient;
 import com.kelompok3.uas_pbp_kelompok_3.api.ApiInterface;
 import com.kelompok3.uas_pbp_kelompok_3.models.User;
 import com.kelompok3.uas_pbp_kelompok_3.models.UserResponse;
+import com.kelompok3.uas_pbp_kelompok_3.models.UserResponse2;
 
 import org.json.JSONObject;
 
@@ -30,7 +32,6 @@ public class RegisterActivity extends AppCompatActivity {
     private TextView tvLogin;
     private LinearLayout layoutLoading;
 
-
     private ApiInterface apiService;
 
     @Override
@@ -39,8 +40,11 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         etName = findViewById(R.id.et_name);
-        etEmail = findViewById(R.id.et_email);
-        etPassword = findViewById(R.id.et_password);
+        apiService = ApiClient.getClient().create(ApiInterface.class);
+
+        etName = findViewById(R.id.et_name);
+        etEmail = findViewById(R.id.et_email_register);
+        etPassword = findViewById(R.id.et_password_register);
 
         registerLayout = findViewById(R.id.registerLayout);
 
@@ -64,9 +68,6 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 createUser();
-                Toast.makeText(RegisterActivity.this,"Success Register!",Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                finish();
             }
         });
 
@@ -81,20 +82,22 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void createUser() {
         setLoading(true);
-        User user = new User(
+        User newUser = new User(
                 etName.getText().toString(),
                 etEmail.getText().toString(),
                 etPassword.getText().toString());
-        Call<UserResponse> call = apiService.register(user);
-        call.enqueue(new Callback<UserResponse>() {
+
+        Call<UserResponse2> call = apiService.register(newUser);
+        call.enqueue(new Callback<UserResponse2>() {
             @Override
-            public void onResponse(Call<UserResponse> call,
-                                   Response<UserResponse> response) {
+            public void onResponse(Call<UserResponse2> call,
+                                   Response<UserResponse2> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(RegisterActivity.this,
                             response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     Intent returnIntent = new Intent();
                     setResult(Activity.RESULT_OK, returnIntent);
+                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                     finish();
                 } else {
                     try {
@@ -111,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
                 setLoading(false);
             }
             @Override
-            public void onFailure(Call<UserResponse> call, Throwable t) {
+            public void onFailure(Call<UserResponse2> call, Throwable t) {
                 Toast.makeText(RegisterActivity.this,
                         t.getMessage(), Toast.LENGTH_SHORT).show();
                 setLoading(false);
