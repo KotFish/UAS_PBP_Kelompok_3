@@ -18,7 +18,7 @@ import com.google.android.material.button.MaterialButton;
 public class MainActivity extends AppCompatActivity {
 
     private TextView tvWelcome;
-    private CardView cvTravel, cvRental;
+    private CardView cvTravel, cvRental, cvProfil;
     private ImageButton btnAbout;
 
     @Override
@@ -28,8 +28,10 @@ public class MainActivity extends AppCompatActivity {
 
         tvWelcome = findViewById(R.id.tvWelcome);
         cvTravel = findViewById(R.id.cvTravel);
-        btnAbout = findViewById(R.id.aboutBtn);
         cvRental = findViewById(R.id.cvRental);
+        cvProfil = findViewById(R.id.cvProfil);
+        btnAbout = findViewById(R.id.aboutBtn);
+
 
 //        tvWelcome.setText("Welcome, "+user.getUsername()+"!");
         tvWelcome.setText("Welcome, User!");
@@ -62,6 +64,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent moveRental = new Intent(MainActivity.this, RentalActivity.class);
                 startActivity(moveRental);
+            }
+        });
+
+        cvProfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent moveProfil = new Intent(MainActivity.this, ProfilActivity.class);
+                startActivity(moveProfil);
             }
         });
     }

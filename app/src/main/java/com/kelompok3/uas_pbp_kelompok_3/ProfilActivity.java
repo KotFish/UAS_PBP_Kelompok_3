@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
@@ -13,6 +14,7 @@ import com.google.android.material.button.MaterialButton;
 public class ProfilActivity extends AppCompatActivity {
     private EditText etEmail, etPassword, etName;
     private MaterialButton btnLogout;
+    private ImageButton btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +27,18 @@ public class ProfilActivity extends AppCompatActivity {
 
         btnLogout = findViewById(R.id.btnLogout);
 
-        etName.setText("");
-        etEmail.setText("");
-        etPassword.setText("");
+        etName.setText("tes");
+        etEmail.setText("tes");
+        etPassword.setText("tes");
+
+        btnBack = findViewById(R.id.btnBack);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
