@@ -32,9 +32,10 @@
             android:exported="true" />
         <activity
             android:name=".AddEditRentalActivity"
-            android:exported="true" /> <!-- <activity -->
-        <!-- android:name=".MainActivity" -->
-        <!-- android:exported="true" /> -->
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">
