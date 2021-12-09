@@ -16,12 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.kelompok3.uas_pbp_kelompok_3.adapters.RentalAdapter;
 import com.kelompok3.uas_pbp_kelompok_3.adapters.WisataAdapter;
 import com.kelompok3.uas_pbp_kelompok_3.api.ApiClient;
 import com.kelompok3.uas_pbp_kelompok_3.api.ApiInterface;
-import com.kelompok3.uas_pbp_kelompok_3.models.RentalResponse;
 import com.kelompok3.uas_pbp_kelompok_3.models.WisataResponse;
+import com.kelompok3.uas_pbp_kelompok_3.models.WisataResponse2;
 
 import org.json.JSONObject;
 
@@ -119,11 +118,11 @@ public class WisataActivity extends AppCompatActivity {
         });
     }
     public void deleteWisata(long id) {
-        Call<WisataResponse> call = apiService.deleteWisata(id);
+        Call<WisataResponse2> call = apiService.deleteWisata(id);
         setLoading(true);
-        call.enqueue(new Callback<WisataResponse>() {
+        call.enqueue(new Callback<WisataResponse2>() {
             @Override
-            public void onResponse(Call<WisataResponse> call, Response<WisataResponse> response) {
+            public void onResponse(Call<WisataResponse2> call, Response<WisataResponse2> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(WisataActivity.this,
                             response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -142,7 +141,7 @@ public class WisataActivity extends AppCompatActivity {
                 setLoading(false);
             }
             @Override
-            public void onFailure(Call<WisataResponse> call, Throwable t) {
+            public void onFailure(Call<WisataResponse2> call, Throwable t) {
                 Toast.makeText(WisataActivity.this, "Network error", Toast.LENGTH_SHORT).show();
                 setLoading(false);
             }

@@ -172,11 +172,11 @@ public class AddEditRentalActivity extends AppCompatActivity {
                 etJenisKendaraan.getText().toString(),
                 etBiayaSewa.getText().toString(),
                 status); // <--- itu boolean gmn cara benerinnya
-        Call<RentalResponse> call = apiService.updateRental(id, rental);
-        call.enqueue(new Callback<RentalResponse>() {
+        Call<RentalResponse2> call = apiService.updateRental(id, rental);
+        call.enqueue(new Callback<RentalResponse2>() {
             @Override
-            public void onResponse(Call<RentalResponse> call,
-                                   Response<RentalResponse> response) {
+            public void onResponse(Call<RentalResponse2> call,
+                                   Response<RentalResponse2> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(AddEditRentalActivity.this,
                             response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -198,7 +198,7 @@ public class AddEditRentalActivity extends AppCompatActivity {
                 setLoading(false);
             }
             @Override
-            public void onFailure(Call<RentalResponse> call, Throwable t) {
+            public void onFailure(Call<RentalResponse2> call, Throwable t) {
                 Toast.makeText(AddEditRentalActivity.this,
                         t.getMessage(), Toast.LENGTH_SHORT).show();
                 setLoading(false);

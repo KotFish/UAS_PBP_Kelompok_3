@@ -300,10 +300,10 @@ public class AddEditWisataActivity extends AppCompatActivity {
                 etDeskripsi.getText().toString(),
                 bitmapToBase64(bit),
                 Integer.parseInt(etHargaWisata.getText().toString()));
-        Call<WisataResponse> call = apiService.updateWisata(id, wisata);
-        call.enqueue(new Callback<WisataResponse>() {
+        Call<WisataResponse2> call = apiService.updateWisata(id, wisata);
+        call.enqueue(new Callback<WisataResponse2>() {
             @Override
-            public void onResponse(Call<WisataResponse> call, Response<WisataResponse> response) {
+            public void onResponse(Call<WisataResponse2> call, Response<WisataResponse2> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(AddEditWisataActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     Intent returnIntent = new Intent();
@@ -320,7 +320,7 @@ public class AddEditWisataActivity extends AppCompatActivity {
                 setLoading(false);
             }
             @Override
-            public void onFailure(Call<WisataResponse> call, Throwable t) {
+            public void onFailure(Call<WisataResponse2> call, Throwable t) {
                 Toast.makeText(AddEditWisataActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 setLoading(false);
             }

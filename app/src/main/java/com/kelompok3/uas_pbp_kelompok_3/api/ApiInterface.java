@@ -37,12 +37,12 @@ public interface ApiInterface {
 
     @Headers({"Accept: application/json"})
     @PUT("wisata/{id}")
-    Call<WisataResponse> updateWisata(@Path("id") long id,
+    Call<WisataResponse2> updateWisata(@Path("id") long id,
                                             @Body Wisata wisata);
 
     @Headers({"Accept: application/json"})
     @DELETE("wisata/{id}")
-    Call<WisataResponse> deleteWisata(@Path("id") long id);
+    Call<WisataResponse2> deleteWisata(@Path("id") long id);
 
     //Rental
     @Headers({
@@ -61,7 +61,7 @@ public interface ApiInterface {
 
     @Headers({"Accept: application/json"})
     @PUT("rental/{id}")
-    Call<RentalResponse> updateRental(@Path("id") long id,
+    Call<RentalResponse2> updateRental(@Path("id") long id,
                                       @Body Rental rental);
 
     @Headers({"Accept: application/json"})

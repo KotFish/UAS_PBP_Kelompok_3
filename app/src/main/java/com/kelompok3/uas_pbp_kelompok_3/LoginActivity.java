@@ -17,7 +17,6 @@ import com.kelompok3.uas_pbp_kelompok_3.api.ApiClient;
 import com.kelompok3.uas_pbp_kelompok_3.api.ApiInterface;
 import com.kelompok3.uas_pbp_kelompok_3.models.User;
 import com.kelompok3.uas_pbp_kelompok_3.models.UserResponse;
-import com.kelompok3.uas_pbp_kelompok_3.models.UserResponse2;
 
 import org.json.JSONObject;
 

@@ -2,7 +2,6 @@ package com.kelompok3.uas_pbp_kelompok_3;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.core.app.NotificationManagerCompat;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -11,9 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.material.button.MaterialButton;
 
 public class MainActivity extends AppCompatActivity {
 
