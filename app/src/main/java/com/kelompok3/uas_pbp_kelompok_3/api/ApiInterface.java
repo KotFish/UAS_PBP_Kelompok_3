@@ -2,6 +2,8 @@ package com.kelompok3.uas_pbp_kelompok_3.api;
 
 import com.kelompok3.uas_pbp_kelompok_3.models.Rental;
 import com.kelompok3.uas_pbp_kelompok_3.models.RentalResponse;
+import com.kelompok3.uas_pbp_kelompok_3.models.User;
+import com.kelompok3.uas_pbp_kelompok_3.models.UserResponse;
 import com.kelompok3.uas_pbp_kelompok_3.models.Wisata;
 import com.kelompok3.uas_pbp_kelompok_3.models.WisataResponse;
 
@@ -65,10 +67,10 @@ public interface ApiInterface {
     //Login
     @Headers({"Accept: application/json"})
     @POST("login")
-    Call<WisataResponse> login(@Body Wisata wisata);
+    Call<UserResponse> login(@Body User user);
 
     //Register
     @Headers({"Accept: application/json"})
     @POST("register")
-    Call<WisataResponse> register(@Body Wisata wisata);
+    Call<UserResponse> register(@Body User user);
 }

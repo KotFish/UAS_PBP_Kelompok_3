@@ -107,4 +107,10 @@
             android:textColor="#3F51B5"
             android:clickable="true"/>
     </LinearLayout>
+
+    <include
+        android:id="@+id/layout_loading"
+        layout="@layout/layout_loading"
+        android:visibility="gone" />
+
 </LinearLayout>

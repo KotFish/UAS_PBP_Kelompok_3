@@ -2,21 +2,36 @@ package com.kelompok3.uas_pbp_kelompok_3;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
+import com.kelompok3.uas_pbp_kelompok_3.api.ApiInterface;
+import com.kelompok3.uas_pbp_kelompok_3.models.User;
+import com.kelompok3.uas_pbp_kelompok_3.models.UserResponse;
+
+import org.json.JSONObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText etEmail, etPassword, etName;
     private MaterialButton btnClear, btnRegister;
     private LinearLayout registerLayout;
     private TextView tvLogin;
+    private LinearLayout layoutLoading;
+
+
+    private ApiInterface apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +48,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         tvLogin = findViewById(R.id.txtLogin);
 
+        layoutLoading = findViewById(R.id.layout_loading);
+
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,35 +62,10 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String regexAlpha = "[a-zA-Z]+";
-                String regexAlphaNum = "^[A-Za-z0-9]+$";
-                String regexEmail = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-//                if(etUsername.getText().toString().trim().equals("test")
-//                        && etPassword.getText().toString().trim().equals("123")) {
-//                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//                    finish();
-//                }else {
-//                    Toast.makeText(LoginActivity.this,"Username Atau Password Salah",Toast.LENGTH_SHORT).show();
-//                }
-                if(etName.getText().toString().trim().isEmpty()){
-                    Toast.makeText(RegisterActivity.this,"Name Tidak Boleh Kosong!",Toast.LENGTH_SHORT).show();
-                }else if(!(etName.getText().toString().trim().matches(regexAlpha))){
-                    Toast.makeText(RegisterActivity.this,"Nama Tidak Boleh Mengandung Angka dan Simbol",Toast.LENGTH_SHORT).show();
-                }
-
-                if(etEmail.getText().toString().trim().isEmpty()){
-                    Toast.makeText(RegisterActivity.this,"Email Tidak Boleh Kosong!",Toast.LENGTH_SHORT).show();
-                }else if(!(etEmail.getText().toString().trim().matches(regexEmail))){
-                    Toast.makeText(RegisterActivity.this,"Format Email Salah",Toast.LENGTH_SHORT).show();
-                }
-
-                if(etPassword.getText().toString().trim().isEmpty()){
-                    Toast.makeText(RegisterActivity.this,"Password Tidak Boleh Kosong!",Toast.LENGTH_SHORT).show();
-                }else if(!(etPassword.getText().toString().trim().matches(regexAlphaNum))){
-                    Toast.makeText(RegisterActivity.this,"Password Harus Mengandung Huruf Besar, kecil, angka, dan simbol",Toast.LENGTH_SHORT).show();
-                }else if(etPassword.getText().toString().trim().length() > 6){
-                    Toast.makeText(RegisterActivity.this,"Password Tidak Boleh Kurang Dari 6 Digit",Toast.LENGTH_SHORT).show();
-                }
+                createUser();
+                Toast.makeText(RegisterActivity.this,"Success Register!",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                finish();
             }
         });
 
@@ -84,5 +76,57 @@ public class RegisterActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void createUser() {
+        setLoading(true);
+        User user = new User(
+                etName.getText().toString(),
+                etEmail.getText().toString(),
+                etPassword.getText().toString());
+        Call<UserResponse> call = apiService.register(user);
+        call.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call,
+                                   Response<UserResponse> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(RegisterActivity.this,
+                            response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Intent returnIntent = new Intent();
+                    setResult(Activity.RESULT_OK, returnIntent);
+                    finish();
+                } else {
+                    try {
+                        JSONObject jObjError = new
+                                JSONObject(response.errorBody().string());
+                        Toast.makeText(RegisterActivity.this,
+                                jObjError.getString("message"),
+                                Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Toast.makeText(RegisterActivity.this,
+                                e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                setLoading(false);
+            }
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                Toast.makeText(RegisterActivity.this,
+                        t.getMessage(), Toast.LENGTH_SHORT).show();
+                setLoading(false);
+            }
+        });
+    }
+
+    // Fungsi untuk menampilkan layout loading
+    private void setLoading(boolean isLoading) {
+        if (isLoading) {
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            layoutLoading.setVisibility(View.VISIBLE);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            layoutLoading.setVisibility(View.INVISIBLE);
+        }
     }
 }
