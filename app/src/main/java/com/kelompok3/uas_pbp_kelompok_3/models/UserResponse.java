@@ -7,8 +7,8 @@ import java.util.List;
 public class UserResponse {
     private String message;
 
-    @SerializedName("data")
-    private List<User> user;
+    @SerializedName("user")
+    private User user;
 
     private  String token_type;
 
@@ -22,11 +22,11 @@ public class UserResponse {
         this.message = message;
     }
 
-    public List<User> getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(List<User> user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

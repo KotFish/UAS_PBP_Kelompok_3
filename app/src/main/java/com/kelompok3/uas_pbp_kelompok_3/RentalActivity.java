@@ -20,6 +20,7 @@ import com.kelompok3.uas_pbp_kelompok_3.adapters.RentalAdapter;
 import com.kelompok3.uas_pbp_kelompok_3.api.ApiClient;
 import com.kelompok3.uas_pbp_kelompok_3.api.ApiInterface;
 import com.kelompok3.uas_pbp_kelompok_3.models.RentalResponse;
+import com.kelompok3.uas_pbp_kelompok_3.models.RentalResponse2;
 
 import org.json.JSONObject;
 
@@ -39,10 +40,15 @@ public class RentalActivity extends AppCompatActivity {
     private SearchView svRental;
     private LinearLayout layoutLoading;
 
+    private Bundle b;
+    private String token;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rental);
+        b = getIntent().getExtras();
+        token = (String) b.get("token");
         apiService = ApiClient.getClient().create(ApiInterface.class);
         layoutLoading = findViewById(R.id.layout_loading);
         srRental = findViewById(R.id.sr_rental);
@@ -88,7 +94,7 @@ public class RentalActivity extends AppCompatActivity {
     }
 
     private void getAllRental() {
-        Call<RentalResponse> call = apiService.getAllRental();
+        Call<RentalResponse> call = apiService.getAllRental(token);
         srRental.setRefreshing(true);
         call.enqueue(new Callback<RentalResponse>() {
             @Override
@@ -120,12 +126,12 @@ public class RentalActivity extends AppCompatActivity {
         });
     }
     public void deleteRental(long id) {
-        Call<RentalResponse> call = apiService.deleteRental(id);
+        Call<RentalResponse2> call = apiService.deleteRental(id);
         setLoading(true);
-        call.enqueue(new Callback<RentalResponse>() {
+        call.enqueue(new Callback<RentalResponse2>() {
             @Override
-            public void onResponse(Call<RentalResponse> call,
-                                   Response<RentalResponse> response) {
+            public void onResponse(Call<RentalResponse2> call,
+                                   Response<RentalResponse2> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(RentalActivity.this,
                             response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -145,7 +151,7 @@ public class RentalActivity extends AppCompatActivity {
                 setLoading(false);
             }
             @Override
-            public void onFailure(Call<RentalResponse> call, Throwable t) {
+            public void onFailure(Call<RentalResponse2> call, Throwable t) {
                 Toast.makeText(RentalActivity.this, "Network error",
                         Toast.LENGTH_SHORT).show();
                 setLoading(false);

@@ -1,5 +1,7 @@
 package com.kelompok3.uas_pbp_kelompok_3.models;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 public class User {
@@ -14,7 +16,7 @@ public class User {
     @SerializedName("password")
     private String password;
 
-    public User(String name, String email, String password) {
+    public User(@Nullable String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;

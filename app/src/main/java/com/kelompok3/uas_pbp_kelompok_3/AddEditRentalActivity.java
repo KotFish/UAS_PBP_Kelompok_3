@@ -20,6 +20,7 @@ import com.kelompok3.uas_pbp_kelompok_3.api.ApiClient;
 import com.kelompok3.uas_pbp_kelompok_3.api.ApiInterface;
 import com.kelompok3.uas_pbp_kelompok_3.models.Rental;
 import com.kelompok3.uas_pbp_kelompok_3.models.RentalResponse;
+import com.kelompok3.uas_pbp_kelompok_3.models.RentalResponse2;
 
 import org.json.JSONObject;
 
@@ -126,11 +127,11 @@ public class AddEditRentalActivity extends AppCompatActivity {
                 etJenisKendaraan.getText().toString(),
                 etBiayaSewa.getText().toString(),
                 status);
-        Call<RentalResponse> call = apiService.createRental(rental);
-        call.enqueue(new Callback<RentalResponse>() {
+        Call<RentalResponse2> call = apiService.createRental(rental);
+        call.enqueue(new Callback<RentalResponse2>() {
             @Override
-            public void onResponse(Call<RentalResponse> call,
-                                   Response<RentalResponse> response) {
+            public void onResponse(Call<RentalResponse2> call,
+                                   Response<RentalResponse2> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(AddEditRentalActivity.this,
                             response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -139,11 +140,11 @@ public class AddEditRentalActivity extends AppCompatActivity {
                     finish();
                 } else {
                     try {
-//                        JSONObject jObjError = new
-//                                JSONObject(response.errorBody().string());
-//                        Toast.makeText(AddEditRentalActivity.this,
-//                                jObjError.getString("message"),
-//                                Toast.LENGTH_SHORT).show();
+                        JSONObject jObjError = new
+                                JSONObject(response.errorBody().string());
+                        Toast.makeText(AddEditRentalActivity.this,
+                                jObjError.getString("message"),
+                                Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         Toast.makeText(AddEditRentalActivity.this,
                                 e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -152,7 +153,7 @@ public class AddEditRentalActivity extends AppCompatActivity {
                 setLoading(false);
             }
             @Override
-            public void onFailure(Call<RentalResponse> call, Throwable t) {
+            public void onFailure(Call<RentalResponse2> call, Throwable t) {
                 Toast.makeText(AddEditRentalActivity.this,
                         t.getMessage(), Toast.LENGTH_SHORT).show();
                 setLoading(false);
