@@ -8,7 +8,11 @@ public class UserResponse {
     private String message;
 
     @SerializedName("user")
-    private List<User> userList;
+    private User user;
+
+    private  String token_type;
+
+    private  String access_token;
 
     public String getMessage() {
         return message;
@@ -18,11 +22,27 @@ public class UserResponse {
         this.message = message;
     }
 
-    public List<User> getRentalList() {
-        return userList;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserList(List<Rental> rentalList) {
-        this.userList = userList;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getToken_type() {
+        return token_type;
+    }
+
+    public void setToken_type(String token_type) {
+        this.token_type = token_type;
+    }
+
+    public String getAccess_token() {
+        return access_token;
+    }
+
+    public void setAccess_token(String access_token) {
+        this.access_token = access_token;
     }
 }
