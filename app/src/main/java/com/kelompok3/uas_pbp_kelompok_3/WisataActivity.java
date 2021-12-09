@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Headers;
 
 public class WisataActivity extends AppCompatActivity {
     public static final int LAUNCH_ADD_ACTIVITY = 123;
@@ -45,8 +46,8 @@ public class WisataActivity extends AppCompatActivity {
         setContentView(R.layout.activity_wisata);
         apiService = ApiClient.getClient().create(ApiInterface.class);
         layoutLoading = findViewById(R.id.layout_loading);
-        srWisata = findViewById(R.id.sr_wisata); //
-        svWisata = findViewById(R.id.sr_wisata); //
+        srWisata = findViewById(R.id.sr_wisata);
+        svWisata = findViewById(R.id.sv_wisata);
         srWisata.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -64,43 +65,41 @@ public class WisataActivity extends AppCompatActivity {
                 return false;
             }
         });
-        FloatingActionButton fabAdd = findViewById(R.id.fab_add);
+        FloatingActionButton fabAdd = findViewById(R.id.fab_add_wisata);
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(WisataActivity.this, AddEditRentalActivity.class);
+                Intent i = new Intent(WisataActivity.this, AddEditWisataActivity.class);
                 startActivityForResult(i, LAUNCH_ADD_ACTIVITY);
             }
         });
-        RecyclerView rvRental = findViewById(R.id.rv_wisata);
+        RecyclerView rvWisata = findViewById(R.id.rv_wisata);
         adapter = new WisataAdapter(new ArrayList<>(), this);
-        rvRental.setLayoutManager(new LinearLayoutManager(WisataActivity.this,
+        rvWisata.setLayoutManager(new LinearLayoutManager(WisataActivity.this,
                 LinearLayoutManager.VERTICAL, false));
-        rvRental.setAdapter(adapter);
+        rvWisata.setAdapter(adapter);
         getAllWisata();
     }
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent
-            data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == LAUNCH_ADD_ACTIVITY && resultCode == Activity.RESULT_OK)
             getAllWisata();
     }
+
 
     private void getAllWisata() {
         Call<WisataResponse> call = apiService.getAllWisata();
         srWisata.setRefreshing(true);
         call.enqueue(new Callback<WisataResponse>() {
             @Override
-            public void onResponse(Call<WisataResponse> call,
-                                   Response<WisataResponse> response) {
+            public void onResponse(Call<WisataResponse> call, Response<WisataResponse> response) {
                 if (response.isSuccessful()) {
                     adapter.setWisataList(response.body().getWisataList());
                     adapter.getFilter().filter(svWisata.getQuery());
                 } else {
                     try {
-                        JSONObject jObjError = new
-                                JSONObject(response.errorBody().string());
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
                         Toast.makeText(WisataActivity.this,
                                 jObjError.getString("message"),
                                 Toast.LENGTH_SHORT).show();
@@ -124,16 +123,14 @@ public class WisataActivity extends AppCompatActivity {
         setLoading(true);
         call.enqueue(new Callback<WisataResponse>() {
             @Override
-            public void onResponse(Call<WisataResponse> call,
-                                   Response<WisataResponse> response) {
+            public void onResponse(Call<WisataResponse> call, Response<WisataResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(WisataActivity.this,
                             response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     getAllWisata();
                 } else {
                     try {
-                        JSONObject jObjError = new
-                                JSONObject(response.errorBody().string());
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
                         Toast.makeText(WisataActivity.this,
                                 jObjError.getString("message"),
                                 Toast.LENGTH_SHORT).show();
@@ -146,8 +143,7 @@ public class WisataActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<WisataResponse> call, Throwable t) {
-                Toast.makeText(WisataActivity.this, "Network error",
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(WisataActivity.this, "Network error", Toast.LENGTH_SHORT).show();
                 setLoading(false);
             }
         });
