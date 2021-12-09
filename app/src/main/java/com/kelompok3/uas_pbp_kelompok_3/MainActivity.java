@@ -14,7 +14,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private TextView tvWelcome;
-    private CardView cvTravel, cvRental;
+    private CardView cvTravel, cvRental, cvProfil;
     private ImageButton btnAbout;
 
     @Override
@@ -23,9 +23,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         tvWelcome = findViewById(R.id.tvWelcome);
-        cvTravel = findViewById(R.id.cvTravel);
         btnAbout = findViewById(R.id.aboutBtn);
+        cvTravel = findViewById(R.id.cvTravel);
         cvRental = findViewById(R.id.cvRental);
+        cvProfil = findViewById(R.id.cvProfil);
 
 //        tvWelcome.setText("Welcome, "+user.getUsername()+"!");
         tvWelcome.setText("Welcome, User!");
@@ -54,6 +55,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         cvRental.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent moveRental = new Intent(MainActivity.this, RentalActivity.class);
+                startActivity(moveRental);
+            }
+        });
+
+        cvProfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent moveRental = new Intent(MainActivity.this, RentalActivity.class);

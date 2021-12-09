@@ -28,8 +28,8 @@ public class ProfilActivity extends AppCompatActivity {
         btnLogout = findViewById(R.id.btnLogout);
 
         etName.setText("tes");
-        etEmail.setText("tes");
-        etPassword.setText("tes");
+        etEmail.setText("tes2");
+        etPassword.setText("tes3");
 
         btnBack = findViewById(R.id.btnBack);
 
