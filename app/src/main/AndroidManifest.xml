@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UAS_PBP_Kelompok_3">
         <activity
+            android:name=".QRActivity"
+            android:exported="true" />
+        <activity
+            android:name=".QRScannerActivity"
+            android:exported="true" />
+        <activity
             android:name=".RegisterActivity"
             android:exported="true" />
         <activity
@@ -26,10 +32,9 @@
             android:exported="true" />
         <activity
             android:name=".AddEditRentalActivity"
-            android:exported="true" />
-<!--        <activity-->
-<!--            android:name=".MainActivity"-->
-<!--            android:exported="true" />-->
+            android:exported="true" /> <!-- <activity -->
+        <!-- android:name=".MainActivity" -->
+        <!-- android:exported="true" /> -->
         <activity
             android:name=".LoginActivity"
             android:exported="true">
