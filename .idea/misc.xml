@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Guided_PBP/UAS_PBP_Kelompok_3/app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.1537037037037037" />
+        <entry key="..\:/Guided_PBP/UAS_PBP_Kelompok_3/app/src/main/res/layout/activity_add_edit_rental.xml" value="0.1796875" />
         <entry key="..\:/Guided_PBP/UAS_PBP_Kelompok_3/app/src/main/res/layout/activity_add_edit_wisata.xml" value="0.1" />
         <entry key="..\:/Guided_PBP/UAS_PBP_Kelompok_3/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Guided_PBP/UAS_PBP_Kelompok_3/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
@@ -11,7 +12,7 @@
         <entry key="..\:/Guided_PBP/UAS_PBP_Kelompok_3/app/src/main/res/layout/activity_qractivity.xml" value="0.1" />
         <entry key="..\:/Guided_PBP/UAS_PBP_Kelompok_3/app/src/main/res/layout/activity_qrscanner.xml" value="0.1" />
         <entry key="..\:/Guided_PBP/UAS_PBP_Kelompok_3/app/src/main/res/layout/activity_register.xml" value="0.24096385542168675" />
-        <entry key="..\:/Guided_PBP/UAS_PBP_Kelompok_3/app/src/main/res/layout/activity_rental.xml" value="0.22" />
+        <entry key="..\:/Guided_PBP/UAS_PBP_Kelompok_3/app/src/main/res/layout/activity_rental.xml" value="0.14666666666666667" />
         <entry key="..\:/Guided_PBP/UAS_PBP_Kelompok_3/app/src/main/res/layout/activity_wisata.xml" value="0.13333333333333333" />
         <entry key="..\:/Guided_PBP/UAS_PBP_Kelompok_3/app/src/main/res/layout/add_edit_rental_activity.xml" value="0.1" />
         <entry key="..\:/Guided_PBP/UAS_PBP_Kelompok_3/app/src/main/res/layout/item_list_rental.xml" value="0.16041666666666668" />

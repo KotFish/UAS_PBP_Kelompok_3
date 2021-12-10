@@ -69,6 +69,7 @@ public class ProfilActivity extends AppCompatActivity {
                 userPreferences.logout();
                 Toast.makeText(ProfilActivity.this,"Thank you for visiting our app!",Toast.LENGTH_SHORT).show();
                 checkLogin();
+                finish();
             }
         });
 
