@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context=".AddEditRentalActivity">
+    tools:context=".AddEditRentalActivity"
+    android:background="@drawable/bg_app">
     <TextView
         android:id="@+id/tv_title_rental"
         style="@style/TextAppearance.AppCompat.Title"

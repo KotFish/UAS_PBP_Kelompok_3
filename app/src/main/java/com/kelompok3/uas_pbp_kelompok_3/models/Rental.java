@@ -3,7 +3,7 @@ package com.kelompok3.uas_pbp_kelompok_3.models;
 import com.google.gson.annotations.SerializedName;
 
 public class Rental {
-
+    @SerializedName("id")
     private Long id;
 
     @SerializedName("no_plat")
@@ -19,9 +19,9 @@ public class Rental {
     private String biaya_penyewaan;
 
     @SerializedName("status")
-    private Integer status;
+    private Boolean status;
 
-    public Rental(String no_plat, String nama_kendaraan, String jenis_kendaraan, String biaya_penyewaan, Integer status) {
+    public Rental(String no_plat, String nama_kendaraan, String jenis_kendaraan, String biaya_penyewaan, Boolean status) {
         this.no_plat = no_plat;
         this.nama_kendaraan = nama_kendaraan;
         this.jenis_kendaraan = jenis_kendaraan;
@@ -69,11 +69,11 @@ public class Rental {
         this.biaya_penyewaan = biaya_penyewaan;
     }
 
-    public Integer getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 }

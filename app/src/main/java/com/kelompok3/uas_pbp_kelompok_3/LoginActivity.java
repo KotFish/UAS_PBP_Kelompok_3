@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
+import com.kelompok3.uas_pbp_kelompok_3.Preferences.UserPreferences;
 import com.kelompok3.uas_pbp_kelompok_3.api.ApiClient;
 import com.kelompok3.uas_pbp_kelompok_3.api.ApiInterface;
 import com.kelompok3.uas_pbp_kelompok_3.models.User;
@@ -31,12 +32,17 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tvRegister;
     private ApiInterface apiService;
     private LinearLayout layoutLoading;
+    private UserPreferences userPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        userPreferences = new UserPreferences(LoginActivity.this);
+
         apiService = ApiClient.getClient().create(ApiInterface.class);
+
         layoutLoading = findViewById(R.id.layout_loading);
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
@@ -47,6 +53,8 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btn_login);
 
         tvRegister = findViewById(R.id.txtRegister);
+
+        checkLogin();
 
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,10 +97,15 @@ public class LoginActivity extends AppCompatActivity {
                     Intent returnIntent = new Intent();
                     setResult(Activity.RESULT_OK, returnIntent);
                     Intent mainActivity = new Intent(LoginActivity.this, MainActivity.class);
-                    String token = response.body().getToken_type() + " " + response.body().getAccess_token();
-                    String userName = response.body().getUser().getName();
-                    mainActivity.putExtra("token", token);
-                    mainActivity.putExtra("username", userName);
+
+                    userPreferences.setUser(
+                            response.body().getUser().getId(),
+                            response.body().getUser().getName(),
+                            response.body().getToken_type() + " " + response.body().getAccess_token(),
+                            etEmail.getText().toString(),
+                            etPassword.getText().toString()
+                    );
+
                     startActivity(mainActivity);
                     finish();
                 } else {
@@ -118,7 +131,13 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    // Fungsi untuk menampilkan layout loading
+    private void checkLogin(){
+        if(userPreferences.checkLogin()){
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
+    }
+
     private void setLoading(boolean isLoading) {
         if (isLoading) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,

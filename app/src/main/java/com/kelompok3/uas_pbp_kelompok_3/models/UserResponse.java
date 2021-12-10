@@ -5,13 +5,16 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class UserResponse {
+    @SerializedName("message")
     private String message;
 
     @SerializedName("user")
     private User user;
 
+    @SerializedName("token_type")
     private  String token_type;
 
+    @SerializedName("access_token")
     private  String access_token;
 
     public String getMessage() {

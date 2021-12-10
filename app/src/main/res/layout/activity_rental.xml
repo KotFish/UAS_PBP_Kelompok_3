@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context=".RentalActivity">
+    tools:context=".RentalActivity"
+    android:background="@drawable/bg_app">
 
     <SearchView
         android:id="@+id/sv_rental"

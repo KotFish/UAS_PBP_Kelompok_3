@@ -8,8 +8,11 @@ public class WisataResponse {
     @SerializedName("message")
     private String message;
 
-    @SerializedName("data")
+    @SerializedName("datas")
     private List<Wisata> wisataList;
+
+    @SerializedName("data")
+    private Wisata wisata;
 
     public String getMessage() {
         return message;
@@ -25,5 +28,13 @@ public class WisataResponse {
 
     public void setWisataList(List<Wisata> wisataList) {
         this.wisataList = wisataList;
+    }
+
+    public Wisata getWisata() {
+        return wisata;
+    }
+
+    public void setWisata(Wisata wisata) {
+        this.wisata = wisata;
     }
 }

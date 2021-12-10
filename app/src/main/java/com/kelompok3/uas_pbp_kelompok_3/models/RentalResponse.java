@@ -5,10 +5,14 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class RentalResponse {
+    @SerializedName("message")
     private String message;
 
-    @SerializedName("data")
+    @SerializedName("datas")
     private List<Rental> rentalList;
+
+    @SerializedName("data")
+    private Rental rental;
 
     public String getMessage() {
         return message;
@@ -24,5 +28,13 @@ public class RentalResponse {
 
     public void setRentalList(List<Rental> rentalList) {
         this.rentalList = rentalList;
+    }
+
+    public Rental getRental() {
+        return rental;
+    }
+
+    public void setRental(Rental rental) {
+        this.rental = rental;
     }
 }

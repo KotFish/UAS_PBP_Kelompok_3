@@ -3,17 +3,22 @@ package com.kelompok3.uas_pbp_kelompok_3.models;
 import com.google.gson.annotations.SerializedName;
 
 public class Wisata {
-
+    @SerializedName("id")
     private Long id;
 
+    @SerializedName("nama_wisata")
     private String nama_wisata;
 
+    @SerializedName("lokasi")
     private String lokasi;
 
+    @SerializedName("deskripsi")
     private String deskripsi;
 
+    @SerializedName("url_gambar")
     private String url_gambar;
 
+    @SerializedName("harga")
     private Integer harga;
 
     public Wisata(String nama_wisata, String lokasi, String deskripsi, String url_gambar, Integer harga) {

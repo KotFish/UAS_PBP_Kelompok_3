@@ -11,16 +11,22 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.kelompok3.uas_pbp_kelompok_3.Preferences.UserPreferences;
+import com.kelompok3.uas_pbp_kelompok_3.models.User;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView tvWelcome;
     private CardView cvTravel, cvRental, cvProfil;
     private ImageButton btnAbout;
+    private UserPreferences userPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        userPreferences = new UserPreferences(MainActivity.this);
+        String username = userPreferences.getUserLogin_name();
 
         tvWelcome = findViewById(R.id.tvWelcome);
         btnAbout = findViewById(R.id.aboutBtn);
@@ -28,8 +34,7 @@ public class MainActivity extends AppCompatActivity {
         cvRental = findViewById(R.id.cvRental);
         cvProfil = findViewById(R.id.cvProfil);
 
-//        tvWelcome.setText("Welcome, "+user.getUsername()+"!");
-        tvWelcome.setText("Welcome, User!");
+        tvWelcome.setText("Welcome, " + username + "!");
 
         btnAbout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         cvProfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent moveRental = new Intent(MainActivity.this, RentalActivity.class);
+                Intent moveRental = new Intent(MainActivity.this, ProfilActivity.class);
                 startActivity(moveRental);
             }
         });

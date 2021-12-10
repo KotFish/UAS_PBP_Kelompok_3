@@ -51,7 +51,7 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder
         holder.tvNamaKendaraan.setText(rental.getNama_kendaraan());
         holder.tvJenisKendaraan.setText(rental.getJenis_kendaraan());
 
-        if(rental.getStatus() == 0){
+        if(rental.getStatus() == false){
             holder.tvStatus.setText("Tidak Tersedia");
             holder.tvStatus.setTextColor(Color.parseColor("#ff0000"));
         }
@@ -64,8 +64,7 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MaterialAlertDialogBuilder materialAlertDialogBuilder =
-                        new MaterialAlertDialogBuilder(context);
+                MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(context);
                 materialAlertDialogBuilder.setTitle("Konfirmasi")
                         .setMessage("Apakah anda yakin ingin menghapus data kendaraan ini?")
                                         .setNegativeButton("Batal", null)
@@ -75,8 +74,7 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder
                                                     public void onClick(DialogInterface dialogInterface, int
                                                             i) {
                                                         if (context instanceof RentalActivity)
-                                                            ((RentalActivity)
-                                                                    context).deleteRental(rental.getId());
+                                                            ((RentalActivity) context).deleteRental(rental.getId());
                                                     }
                                                 })
                                         .show();
@@ -88,8 +86,7 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder
                 Intent i = new Intent(context, AddEditRentalActivity.class);
                 i.putExtra("id", rental.getId());
                 if (context instanceof RentalActivity)
-                    ((RentalActivity) context).startActivityForResult(i,
-                            RentalActivity.LAUNCH_ADD_ACTIVITY);
+                    ((RentalActivity) context).startActivityForResult(i, RentalActivity.LAUNCH_ADD_ACTIVITY);
             }
         });
     }
@@ -112,8 +109,7 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder
                     filtered.addAll(rentalList);
                 } else {
                     for (Rental rental : rentalList) {
-                        if (rental.getNama_kendaraan().toLowerCase()
-                                .contains(charSequenceString.toLowerCase()))
+                        if (rental.getNama_kendaraan().toLowerCase().contains(charSequenceString.toLowerCase()))
                             filtered.add(rental);
                     }
                 }
@@ -122,8 +118,7 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder
                 return filterResults;
             }
             @Override
-            protected void publishResults(CharSequence charSequence, FilterResults
-                    filterResults) {
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                 filteredRentalList.clear();
                 filteredRentalList.addAll((List<Rental>) filterResults.values);
                 notifyDataSetChanged();
@@ -141,7 +136,7 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalAdapter.ViewHolder
             tvJenisKendaraan = itemView.findViewById(R.id.tv_jenisKendaraan);
             tvStatus = itemView.findViewById(R.id.tv_status);
             tvBiayaKendaraan = itemView.findViewById(R.id.tv_biayaSewa);
-            btnDelete = itemView.findViewById(R.id.btn_delete);
+            btnDelete = itemView.findViewById(R.id.btn_delete_rental);
             cvRental = itemView.findViewById(R.id.cv_rental);
         }
     }

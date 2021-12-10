@@ -57,7 +57,7 @@ public class WisataAdapter extends RecyclerView.Adapter<WisataAdapter.ViewHolder
                 .placeholder(R.drawable.no_image)
                 .into(holder.ivGambarWisata);
 
-        holder.tvHarga.setText(String.valueOf(wisata.getHarga()));
+        holder.tvHarga.setText("Rp. " + wisata.getHarga());
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -27,11 +27,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.kelompok3.uas_pbp_kelompok_3.Preferences.UserPreferences;
 import com.kelompok3.uas_pbp_kelompok_3.api.ApiClient;
 import com.kelompok3.uas_pbp_kelompok_3.api.ApiInterface;
+import com.kelompok3.uas_pbp_kelompok_3.models.UserResponse;
 import com.kelompok3.uas_pbp_kelompok_3.models.Wisata;
 import com.kelompok3.uas_pbp_kelompok_3.models.WisataResponse;
-import com.kelompok3.uas_pbp_kelompok_3.models.WisataResponse2;
 
 import org.json.JSONObject;
 
@@ -52,12 +53,14 @@ public class AddEditWisataActivity extends AppCompatActivity {
     private EditText etNamaWisata, etHargaWisata, etLokasi, etDeskripsi;
     private ImageView ivGambarWisata;
     private LinearLayout layoutLoading;
+    private UserPreferences userPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_wisata);
         apiService = ApiClient.getClient().create(ApiInterface.class);
+        userPreferences = new UserPreferences(AddEditWisataActivity.this);
 
         ivGambarWisata = findViewById(R.id.iv_gambarWisata);
         etNamaWisata = findViewById(R.id.et_namaWisata);
@@ -122,18 +125,18 @@ public class AddEditWisataActivity extends AppCompatActivity {
             btnSave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (etNamaWisata.length() == 0 ||
-                            etHargaWisata.length() == 0 ||
-                            etLokasi.length() == 0||
-                            etDeskripsi.length() == 0)
-                        Toast.makeText(AddEditWisataActivity.this, "Lengkapi Data Terlebih Dahulu!", Toast.LENGTH_SHORT).show();
-                    else
-                        createProduk();
+//                    if (etNamaWisata.length() == 0 ||
+//                            etHargaWisata.length() == 0 ||
+//                            etLokasi.length() == 0||
+//                            etDeskripsi.length() == 0)
+//                        Toast.makeText(AddEditWisataActivity.this, "Lengkapi Data Terlebih Dahulu!", Toast.LENGTH_SHORT).show();
+//                    else
+                        createWisata();
                 }
             });
         } else {
             tvTitle.setText("Edit Wisata");
-            getProdukById(id);
+            getWisataById(id);
 
             btnSave.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -144,7 +147,7 @@ public class AddEditWisataActivity extends AppCompatActivity {
                             etDeskripsi.length() == 0)
                         Toast.makeText(AddEditWisataActivity.this, "Lengkapi Data Terlebih Dahulu!", Toast.LENGTH_SHORT).show();
                     else
-                        updateProduk(id);
+                        updateWisata(id);
                 }
             });
         }
@@ -215,17 +218,17 @@ public class AddEditWisataActivity extends AppCompatActivity {
         return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
 
-    private void getProdukById(long id) {
+    private void getWisataById(long id) {
         setLoading(true);
-        Call<WisataResponse> call = apiService.getWisataById(id);
+        Call<WisataResponse> call = apiService.getWisataById(userPreferences.getUserLogin_token(), id);
 
         call.enqueue(new Callback<WisataResponse>() {
             @Override
             public void onResponse(Call<WisataResponse> call, Response<WisataResponse> response) {
                 if (response.isSuccessful()) {
-                    Wisata wisata = response.body().getWisataList().get(0);
+                    Wisata wisata = response.body().getWisata();
                     etNamaWisata.setText(wisata.getNama_wisata());
-                    etHargaWisata.setText(wisata.getHarga());
+                    etHargaWisata.setText(wisata.getHarga().toString());
                     etLokasi.setText(wisata.getLokasi());
                     etDeskripsi.setText(wisata.getDeskripsi());
                     Glide.with(AddEditWisataActivity.this)
@@ -251,21 +254,27 @@ public class AddEditWisataActivity extends AppCompatActivity {
         });
     }
 
-    private void createProduk() {
+    private void createWisata() {
+        int hargaWisata;
         setLoading(true);
         BitmapDrawable bitmapDrawable = (BitmapDrawable) ivGambarWisata.getDrawable();
         Bitmap bit = bitmapDrawable.getBitmap();
+        if(etHargaWisata.getText().toString().equals(""))
+            hargaWisata = 0;
+        else
+            hargaWisata= Integer.parseInt(etHargaWisata.getText().toString());
         Wisata wisataw = new Wisata(
                 etNamaWisata.getText().toString(),
                 etLokasi.getText().toString(),
                 etDeskripsi.getText().toString(),
                 "no_link",
-                Integer.parseInt(etHargaWisata.getText().toString()));
+                hargaWisata
+        );
 
-        Call<WisataResponse2> call = apiService.createWisata(wisataw);
-        call.enqueue(new Callback<WisataResponse2>() {
+        Call<WisataResponse> call = apiService.createWisata(userPreferences.getUserLogin_token(), wisataw);
+        call.enqueue(new Callback<WisataResponse>() {
             @Override
-            public void onResponse(Call<WisataResponse2> call, Response<WisataResponse2> response) {
+            public void onResponse(Call<WisataResponse> call, Response<WisataResponse> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(AddEditWisataActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     Intent returnIntent = new Intent();
@@ -283,27 +292,32 @@ public class AddEditWisataActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<WisataResponse2> call, Throwable t) {
+            public void onFailure(Call<WisataResponse> call, Throwable t) {
                 Toast.makeText(AddEditWisataActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 setLoading(false);
             }
         });
     }
 
-    private void updateProduk(long id) {
+    private void updateWisata(long id) {
+        int hargaWisata;
         setLoading(true);
         BitmapDrawable bitmapDrawable = (BitmapDrawable) ivGambarWisata.getDrawable();
         Bitmap bit = bitmapDrawable.getBitmap();
+        if(etHargaWisata.getText().toString().equals(""))
+            hargaWisata = 0;
+        else
+            hargaWisata = Integer.parseInt(etHargaWisata.getText().toString());
         Wisata wisata = new Wisata(
                 etNamaWisata.getText().toString(),
                 etLokasi.getText().toString(),
                 etDeskripsi.getText().toString(),
-                bitmapToBase64(bit),
-                Integer.parseInt(etHargaWisata.getText().toString()));
-        Call<WisataResponse2> call = apiService.updateWisata(id, wisata);
-        call.enqueue(new Callback<WisataResponse2>() {
+                "no_link",
+                hargaWisata);
+        Call<WisataResponse> call = apiService.updateWisata(userPreferences.getUserLogin_token(), id, wisata);
+        call.enqueue(new Callback<WisataResponse>() {
             @Override
-            public void onResponse(Call<WisataResponse2> call, Response<WisataResponse2> response) {
+            public void onResponse(Call<WisataResponse> call, Response<WisataResponse> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(AddEditWisataActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     Intent returnIntent = new Intent();
@@ -320,7 +334,7 @@ public class AddEditWisataActivity extends AppCompatActivity {
                 setLoading(false);
             }
             @Override
-            public void onFailure(Call<WisataResponse2> call, Throwable t) {
+            public void onFailure(Call<WisataResponse> call, Throwable t) {
                 Toast.makeText(AddEditWisataActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 setLoading(false);
             }

@@ -17,7 +17,6 @@ import com.kelompok3.uas_pbp_kelompok_3.api.ApiClient;
 import com.kelompok3.uas_pbp_kelompok_3.api.ApiInterface;
 import com.kelompok3.uas_pbp_kelompok_3.models.User;
 import com.kelompok3.uas_pbp_kelompok_3.models.UserResponse;
-import com.kelompok3.uas_pbp_kelompok_3.models.UserResponse2;
 
 import org.json.JSONObject;
 
@@ -67,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createUser();
+                register();
             }
         });
 
@@ -80,18 +79,19 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void createUser() {
+    private void register() {
         setLoading(true);
         User newUser = new User(
                 etName.getText().toString(),
                 etEmail.getText().toString(),
-                etPassword.getText().toString());
+                etPassword.getText().toString()
+        );
 
-        Call<UserResponse2> call = apiService.register(newUser);
-        call.enqueue(new Callback<UserResponse2>() {
+        Call<UserResponse> call = apiService.register(newUser);
+        call.enqueue(new Callback<UserResponse>() {
             @Override
-            public void onResponse(Call<UserResponse2> call,
-                                   Response<UserResponse2> response) {
+            public void onResponse(Call<UserResponse> call,
+                                   Response<UserResponse> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(RegisterActivity.this,
                             response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -114,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
                 setLoading(false);
             }
             @Override
-            public void onFailure(Call<UserResponse2> call, Throwable t) {
+            public void onFailure(Call<UserResponse> call, Throwable t) {
                 Toast.makeText(RegisterActivity.this,
                         t.getMessage(), Toast.LENGTH_SHORT).show();
                 setLoading(false);
@@ -125,8 +125,7 @@ public class RegisterActivity extends AppCompatActivity {
     // Fungsi untuk menampilkan layout loading
     private void setLoading(boolean isLoading) {
         if (isLoading) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             layoutLoading.setVisibility(View.VISIBLE);
         } else {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);

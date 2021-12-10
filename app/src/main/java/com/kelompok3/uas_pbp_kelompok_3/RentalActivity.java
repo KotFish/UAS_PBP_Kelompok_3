@@ -16,11 +16,11 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.kelompok3.uas_pbp_kelompok_3.Preferences.UserPreferences;
 import com.kelompok3.uas_pbp_kelompok_3.adapters.RentalAdapter;
 import com.kelompok3.uas_pbp_kelompok_3.api.ApiClient;
 import com.kelompok3.uas_pbp_kelompok_3.api.ApiInterface;
 import com.kelompok3.uas_pbp_kelompok_3.models.RentalResponse;
-import com.kelompok3.uas_pbp_kelompok_3.models.RentalResponse2;
 
 import org.json.JSONObject;
 
@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Headers;
 
 public class RentalActivity extends AppCompatActivity {
 
@@ -39,16 +38,14 @@ public class RentalActivity extends AppCompatActivity {
     private ApiInterface apiService;
     private SearchView svRental;
     private LinearLayout layoutLoading;
-
-    private Bundle b;
-    private String token;
+    private UserPreferences userPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rental);
-        b = getIntent().getExtras();
-        token = (String) b.get("token");
+        userPreferences = new UserPreferences(RentalActivity.this);
+
         apiService = ApiClient.getClient().create(ApiInterface.class);
         layoutLoading = findViewById(R.id.layout_loading);
         srRental = findViewById(R.id.sr_rental);
@@ -80,8 +77,7 @@ public class RentalActivity extends AppCompatActivity {
         });
         RecyclerView rvRental = findViewById(R.id.rv_rental);
         adapter = new RentalAdapter(new ArrayList<>(), this);
-        rvRental.setLayoutManager(new LinearLayoutManager(RentalActivity.this,
-                LinearLayoutManager.VERTICAL, false));
+        rvRental.setLayoutManager(new LinearLayoutManager(RentalActivity.this, LinearLayoutManager.VERTICAL, false));
         rvRental.setAdapter(adapter);
         getAllRental();
     }
@@ -94,7 +90,7 @@ public class RentalActivity extends AppCompatActivity {
     }
 
     private void getAllRental() {
-        Call<RentalResponse> call = apiService.getAllRental(token);
+        Call<RentalResponse> call = apiService.getAllRental(userPreferences.getUserLogin_token());
         srRental.setRefreshing(true);
         call.enqueue(new Callback<RentalResponse>() {
             @Override
@@ -125,13 +121,14 @@ public class RentalActivity extends AppCompatActivity {
             }
         });
     }
+
     public void deleteRental(long id) {
-        Call<RentalResponse2> call = apiService.deleteRental(id);
+        Call<RentalResponse> call = apiService.deleteRental(userPreferences.getUserLogin_token(), id);
         setLoading(true);
-        call.enqueue(new Callback<RentalResponse2>() {
+        call.enqueue(new Callback<RentalResponse>() {
             @Override
-            public void onResponse(Call<RentalResponse2> call,
-                                   Response<RentalResponse2> response) {
+            public void onResponse(Call<RentalResponse> call,
+                                   Response<RentalResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(RentalActivity.this,
                             response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -151,18 +148,18 @@ public class RentalActivity extends AppCompatActivity {
                 setLoading(false);
             }
             @Override
-            public void onFailure(Call<RentalResponse2> call, Throwable t) {
+            public void onFailure(Call<RentalResponse> call, Throwable t) {
                 Toast.makeText(RentalActivity.this, "Network error",
                         Toast.LENGTH_SHORT).show();
                 setLoading(false);
             }
         });
     }
+
     // Fungsi untuk menampilkan layout loading
     private void setLoading(boolean isLoading) {
         if (isLoading) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             layoutLoading.setVisibility(View.VISIBLE);
         } else {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);

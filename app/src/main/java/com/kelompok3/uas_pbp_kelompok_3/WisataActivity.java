@@ -16,11 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.kelompok3.uas_pbp_kelompok_3.Preferences.UserPreferences;
 import com.kelompok3.uas_pbp_kelompok_3.adapters.WisataAdapter;
 import com.kelompok3.uas_pbp_kelompok_3.api.ApiClient;
 import com.kelompok3.uas_pbp_kelompok_3.api.ApiInterface;
 import com.kelompok3.uas_pbp_kelompok_3.models.WisataResponse;
-import com.kelompok3.uas_pbp_kelompok_3.models.WisataResponse2;
 
 import org.json.JSONObject;
 
@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Headers;
 
 public class WisataActivity extends AppCompatActivity {
     public static final int LAUNCH_ADD_ACTIVITY = 123;
@@ -38,11 +37,14 @@ public class WisataActivity extends AppCompatActivity {
     private ApiInterface apiService;
     private SearchView svWisata;
     private LinearLayout layoutLoading;
+    private UserPreferences userPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wisata);
+        userPreferences = new UserPreferences(WisataActivity.this);
+
         apiService = ApiClient.getClient().create(ApiInterface.class);
         layoutLoading = findViewById(R.id.layout_loading);
         srWisata = findViewById(R.id.sr_wisata);
@@ -74,11 +76,11 @@ public class WisataActivity extends AppCompatActivity {
         });
         RecyclerView rvWisata = findViewById(R.id.rv_wisata);
         adapter = new WisataAdapter(new ArrayList<>(), this);
-        rvWisata.setLayoutManager(new LinearLayoutManager(WisataActivity.this,
-                LinearLayoutManager.VERTICAL, false));
+        rvWisata.setLayoutManager(new LinearLayoutManager(WisataActivity.this, LinearLayoutManager.VERTICAL, false));
         rvWisata.setAdapter(adapter);
         getAllWisata();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -88,7 +90,7 @@ public class WisataActivity extends AppCompatActivity {
 
 
     private void getAllWisata() {
-        Call<WisataResponse> call = apiService.getAllWisata();
+        Call<WisataResponse> call = apiService.getAllWisata(userPreferences.getUserLogin_token());
         srWisata.setRefreshing(true);
         call.enqueue(new Callback<WisataResponse>() {
             @Override
@@ -99,39 +101,34 @@ public class WisataActivity extends AppCompatActivity {
                 } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        Toast.makeText(WisataActivity.this,
-                                jObjError.getString("message"),
+                        Toast.makeText(WisataActivity.this, jObjError.getString("message"),
                                 Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
-                        Toast.makeText(WisataActivity.this,
-                                e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(WisataActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
                 srWisata.setRefreshing(false);
             }
             @Override
             public void onFailure(Call<WisataResponse> call, Throwable t) {
-                Toast.makeText(WisataActivity.this, "Network error",
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(WisataActivity.this, "Network error", Toast.LENGTH_SHORT).show();
                 srWisata.setRefreshing(false);
             }
         });
     }
     public void deleteWisata(long id) {
-        Call<WisataResponse2> call = apiService.deleteWisata(id);
+        Call<WisataResponse> call = apiService.deleteWisata(userPreferences.getUserLogin_token(), id);
         setLoading(true);
-        call.enqueue(new Callback<WisataResponse2>() {
+        call.enqueue(new Callback<WisataResponse>() {
             @Override
-            public void onResponse(Call<WisataResponse2> call, Response<WisataResponse2> response) {
+            public void onResponse(Call<WisataResponse> call, Response<WisataResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Toast.makeText(WisataActivity.this,
-                            response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WisataActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     getAllWisata();
                 } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        Toast.makeText(WisataActivity.this,
-                                jObjError.getString("message"),
+                        Toast.makeText(WisataActivity.this, jObjError.getString("message"),
                                 Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         Toast.makeText(WisataActivity.this,
@@ -141,7 +138,7 @@ public class WisataActivity extends AppCompatActivity {
                 setLoading(false);
             }
             @Override
-            public void onFailure(Call<WisataResponse2> call, Throwable t) {
+            public void onFailure(Call<WisataResponse> call, Throwable t) {
                 Toast.makeText(WisataActivity.this, "Network error", Toast.LENGTH_SHORT).show();
                 setLoading(false);
             }
@@ -150,8 +147,7 @@ public class WisataActivity extends AppCompatActivity {
     // Fungsi untuk menampilkan layout loading
     private void setLoading(boolean isLoading) {
         if (isLoading) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             layoutLoading.setVisibility(View.VISIBLE);
         } else {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
