@@ -62,7 +62,7 @@ public class RegisterActivityTest {
                                 childAtPosition(
                                         withClassName(is("com.google.android.material.textfield.TextInputLayout")),
                                         0),
-                                0),
+                                1),
                         isDisplayed()));
         textInputEditText.perform(replaceText("pandujamet"), closeSoftKeyboard());
 
@@ -82,7 +82,7 @@ public class RegisterActivityTest {
                                 childAtPosition(
                                         withClassName(is("com.google.android.material.textfield.TextInputLayout")),
                                         0),
-                                0),
+                                1),
                         isDisplayed()));
         textInputEditText2.perform(replaceText("pandujamet"), closeSoftKeyboard());
 
@@ -102,7 +102,7 @@ public class RegisterActivityTest {
                                 childAtPosition(
                                         withClassName(is("com.google.android.material.textfield.TextInputLayout")),
                                         0),
-                                0),
+                                1),
                         isDisplayed()));
         textInputEditText3.perform(replaceText("pandujamet@gmail.com"));
 
@@ -112,7 +112,7 @@ public class RegisterActivityTest {
                                 childAtPosition(
                                         withClassName(is("com.google.android.material.textfield.TextInputLayout")),
                                         0),
-                                0),
+                                1),
                         isDisplayed()));
         textInputEditText4.perform(closeSoftKeyboard());
 
@@ -132,7 +132,7 @@ public class RegisterActivityTest {
                                 childAtPosition(
                                         withClassName(is("com.google.android.material.textfield.TextInputLayout")),
                                         0),
-                                0),
+                                1),
                         isDisplayed()));
         textInputEditText5.perform(replaceText("jamet123"), closeSoftKeyboard());
 
