@@ -133,8 +133,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private void checkLogin(){
         if(userPreferences.checkLogin()){
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish();
+            etEmail.setText(userPreferences.getUserLogin_email());
+            etPassword.setText(userPreferences.getUserLogin_password());
+            login();
         }
     }
 
